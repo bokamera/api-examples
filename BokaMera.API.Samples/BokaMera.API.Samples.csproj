@@ -35,11 +35,23 @@
     <Reference Include="BokaMera.API.ServiceModel">
       <HintPath>..\..\api\BokaMera.API.ServiceModel\bin\Debug\BokaMera.API.ServiceModel.dll</HintPath>
     </Reference>
+    <Reference Include="MsgPack">
+      <HintPath>packages\MsgPack.Cli.0.5.8\lib\net45\MsgPack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack">
+      <HintPath>packages\ServiceStack.4.0.42\lib\net40\ServiceStack.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Client">
       <HintPath>packages\ServiceStack.Client.4.0.42\lib\net40\ServiceStack.Client.dll</HintPath>
     </Reference>
+    <Reference Include="ServiceStack.Common">
+      <HintPath>packages\ServiceStack.Common.4.0.42\lib\net40\ServiceStack.Common.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Interfaces">
       <HintPath>packages\ServiceStack.Interfaces.4.0.42\lib\portable-wp80+sl5+net40+win8+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.MsgPack">
+      <HintPath>packages\ServiceStack.MsgPack.4.0.42\lib\net40\ServiceStack.MsgPack.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Text">
       <HintPath>packages\ServiceStack.Text.4.0.42\lib\net40\ServiceStack.Text.dll</HintPath>
