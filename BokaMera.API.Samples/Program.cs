@@ -1,4 +1,5 @@
 ﻿using System;
+using BokaMera.API.ServiceModel.Dtos;
 using ServiceStack;
 using ServiceStack.MsgPack;
 using ServiceStack.Text;
@@ -25,8 +26,8 @@ namespace BokaMera.API.Samples
 
          // Call service, this uses Dto from BokaMera's nuget package to return typed responses.
          // Check the namespace BokaMera.API.ServiceModel.Dto.* for request and response classes
-         Console.WriteLine("Calling service FindBookings...");
-         var response = client.Get(new BokaMera.API.ServiceModel.Dto.GetApiVersion());
+         Console.WriteLine("Calling service GetApiVersion...");
+         var response = client.Get(new GetApiVersion());
          
          // Print response
          Console.WriteLine("Response received, printing output...");
