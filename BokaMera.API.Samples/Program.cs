@@ -28,7 +28,7 @@ namespace BokaMera.API.Samples
          // Check the namespace BokaMera.API.ServiceModel.Dto.* for request and response classes
          Console.WriteLine("Calling service GetApiVersion...");
          var response = client.Get(new GetApiVersion());
-         
+
          // Print response
          Console.WriteLine("Response received, printing output...");
          response.PrintDump();

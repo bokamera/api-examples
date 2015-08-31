@@ -32,8 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BokaMera.Api.Nuget">
-      <HintPath>packages\BokaMera.API.ServiceModel.0.0.0.67\lib\net45\BokaMera.Api.Nuget.dll</HintPath>
+    <Reference Include="BokaMera.Api, Version=0.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\BokaMera.API.ServiceModel.0.2.2.0\lib\net45\BokaMera.Api.dll</HintPath>
     </Reference>
     <Reference Include="MsgPack">
       <HintPath>packages\MsgPack.Cli.0.5.8\lib\net45\MsgPack.dll</HintPath>
