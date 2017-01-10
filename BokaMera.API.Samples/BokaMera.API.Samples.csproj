@@ -32,30 +32,37 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BokaMera.Api, Version=0.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\BokaMera.API.ServiceModel.0.2.2.0\lib\net45\BokaMera.Api.dll</HintPath>
+    <Reference Include="BokaMera.Api, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\BokaMera.API.ServiceModel.0.2.256\lib\net45\BokaMera.Api.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="MsgPack">
-      <HintPath>packages\MsgPack.Cli.0.5.8\lib\net45\MsgPack.dll</HintPath>
+    <Reference Include="MsgPack, Version=0.8.0.0, Culture=neutral, PublicKeyToken=a2625990d5dc0167, processorArchitecture=MSIL">
+      <HintPath>packages\MsgPack.Cli.0.8.0\lib\net45\MsgPack.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="ServiceStack">
-      <HintPath>packages\ServiceStack.4.0.42\lib\net40\ServiceStack.dll</HintPath>
+    <Reference Include="ServiceStack, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\ServiceStack.4.5.4\lib\net45\ServiceStack.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="ServiceStack.Client">
-      <HintPath>packages\ServiceStack.Client.4.0.42\lib\net40\ServiceStack.Client.dll</HintPath>
+    <Reference Include="ServiceStack.Client, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\ServiceStack.Client.4.5.4\lib\net45\ServiceStack.Client.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="ServiceStack.Common">
-      <HintPath>packages\ServiceStack.Common.4.0.42\lib\net40\ServiceStack.Common.dll</HintPath>
+    <Reference Include="ServiceStack.Common, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\ServiceStack.Common.4.5.4\lib\net45\ServiceStack.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="ServiceStack.Interfaces">
-      <HintPath>packages\ServiceStack.Interfaces.4.0.42\lib\portable-wp80+sl5+net40+win8+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <HintPath>packages\ServiceStack.Interfaces.4.5.4\lib\portable-wp80+sl5+net45+win8+wpa81+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="ServiceStack.MsgPack">
-      <HintPath>packages\ServiceStack.MsgPack.4.0.42\lib\net40\ServiceStack.MsgPack.dll</HintPath>
+    <Reference Include="ServiceStack.MsgPack, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\ServiceStack.MsgPack.4.5.4\lib\net45\ServiceStack.MsgPack.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="ServiceStack.Text">
-      <HintPath>packages\ServiceStack.Text.4.0.42\lib\net40\ServiceStack.Text.dll</HintPath>
+    <Reference Include="ServiceStack.Text, Version=4.5.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\ServiceStack.Text.4.5.4\lib\net45\ServiceStack.Text.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
