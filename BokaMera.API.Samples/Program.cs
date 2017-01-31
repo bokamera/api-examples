@@ -3,6 +3,7 @@ using BokaMera.API.ServiceModel.Dtos;
 using ServiceStack;
 using ServiceStack.MsgPack;
 using ServiceStack.Text;
+using System.Net;
 
 namespace BokaMera.API.Samples
 {
@@ -14,6 +15,9 @@ namespace BokaMera.API.Samples
 
         static void Main(string[] args)
         {
+
+            AuthExamples();
+
             // Create and configure client
             // BokaMera API supports MsgPack, prefer that for efficient communication with the API.
             // See https://github.com/ServiceStack/ServiceStack/wiki/MessagePack-Format
@@ -28,7 +32,11 @@ namespace BokaMera.API.Samples
                 Password = "password",
             });
 
+            
             client.AddHeader("x-ss-id", response.SessionId);
+
+            
+            client.BearerToken = response.BearerToken;           
 
             // Call service, this uses Dto from BokaMera's nuget package to return typed responses.
             // Check the namespace BokaMera.API.ServiceModel.Dto.* for request and response classes
@@ -55,6 +63,58 @@ namespace BokaMera.API.Samples
 
             // Wait for keypress
             Console.ReadKey();
+        }
+
+        static void AuthExamples()
+        {
+           
+            var credentials = new { UserName = "username", Password = "password" };
+            var key = "YOUR_API_KEY_HERE";
+
+
+            Action<HttpWebRequest> apiKey = r => r.Headers.Add("x-api-key", key);
+
+            Console.WriteLine("Retrive authentication data...");
+            var authResponce = 
+                (ApiUrlTest + "/authenticate")
+                    .PostJsonToUrl(credentials, apiKey)
+                    .FromJson<AuthenticateResponse>();
+           
+            authResponce.PrintDump();
+
+            Action<HttpWebRequest> bearerTokenAuth = r => r.AddBearerToken(authResponce.BearerToken);
+            Action<HttpWebRequest> sessionAuth = r => r.Headers.Add("x-ss-id", authResponce.SessionId);
+
+            //authentication via bearer token
+            Console.WriteLine("Send authenticated request with bearer token...");
+            (ApiUrlTest + "/users")
+                .GetJsonFromUrl(apiKey + bearerTokenAuth)
+                .PrintDump();
+
+            //authentication via session id
+            Console.WriteLine("Send authenticated request with session id...");
+            (ApiUrlTest + "/users")
+                .GetJsonFromUrl(apiKey + sessionAuth)
+                .PrintDump();
+
+            //anonymous request
+            Console.WriteLine("Send anonymous request...");
+            (ApiUrlTest + "/version")
+               .GetJsonFromUrl(apiKey)
+               .PrintDump();
+
+            //client with authentication on demand
+            var client = new JsonServiceClient(ApiUrlTest) { RequestFilter = apiKey };
+            client.OnAuthenticationRequired = () => 
+            {
+                client.BearerToken =
+                    (ApiUrlTest + "/authenticate")
+                    .PostJsonToUrl(new { UserName = "demo@bokamera.se", Password = "demo12", }, apiKey)
+                    .FromJson<AuthenticateResponse>().BearerToken;
+            };
+
+            Console.WriteLine("Send request with authentication on demand...");
+            client.Get(new CurrentUserQuery()).PrintDump(); 
         }
     }
 }
