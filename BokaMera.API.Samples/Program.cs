@@ -15,7 +15,6 @@ namespace BokaMera.API.Samples
 
         static void Main(string[] args)
         {
-
             AuthExamples();
 
             // Create and configure client
@@ -67,9 +66,11 @@ namespace BokaMera.API.Samples
 
         static void AuthExamples()
         {
-           
-            var credentials = new { UserName = "username", Password = "password" };
-            var key = "YOUR_API_KEY_HERE";
+
+            var userName = "username";
+            var password = "password";          
+            var key = "secret_key";
+            var oauth_token = "_";
 
 
             Action<HttpWebRequest> apiKey = r => r.Headers.Add("x-api-key", key);
@@ -77,7 +78,7 @@ namespace BokaMera.API.Samples
             Console.WriteLine("Retrive authentication data...");
             var authResponce = 
                 (ApiUrlTest + "/authenticate")
-                    .PostJsonToUrl(credentials, apiKey)
+                    .PostJsonToUrl(new Authenticate { UserName = userName, Password = password }, apiKey)
                     .FromJson<AuthenticateResponse>();
            
             authResponce.PrintDump();
@@ -103,18 +104,32 @@ namespace BokaMera.API.Samples
                .GetJsonFromUrl(apiKey)
                .PrintDump();
 
-            //client with authentication on demand
-            var client = new JsonServiceClient(ApiUrlTest) { RequestFilter = apiKey };
-            client.OnAuthenticationRequired = () => 
+            //client with credentials authentication on demand
+            var clientWithCredentials = new JsonServiceClient(ApiUrlTest) { RequestFilter = apiKey };
+            clientWithCredentials.OnAuthenticationRequired = () => 
             {
-                client.BearerToken =
+                clientWithCredentials.BearerToken =
                     (ApiUrlTest + "/authenticate")
-                    .PostJsonToUrl(new { UserName = "demo@bokamera.se", Password = "demo12", }, apiKey)
+                    .PostJsonToUrl(new Authenticate { UserName = userName, Password = password, }, apiKey)
                     .FromJson<AuthenticateResponse>().BearerToken;
             };
 
             Console.WriteLine("Send request with authentication on demand...");
-            client.Get(new CurrentUserQuery()).PrintDump(); 
+            clientWithCredentials.Get(new CurrentUserQuery()).PrintDump();
+
+
+            //client with fb token authentication on demand
+            var clientWithFbToken = new JsonServiceClient(ApiUrlTest) { RequestFilter = apiKey };
+            clientWithFbToken.OnAuthenticationRequired = () =>
+            {
+                clientWithFbToken.BearerToken =
+                    (ApiUrlTest + "/authenticate")
+                    .PostJsonToUrl(new Authenticate { provider = "facebook", oauth_token = oauth_token }, apiKey)
+                    .FromJson<AuthenticateResponse>().BearerToken;
+            };
+
+            Console.WriteLine("Send request with fb token authentication on demand...");
+            clientWithFbToken.Get(new CurrentUserQuery()).PrintDump();
         }
     }
 }
