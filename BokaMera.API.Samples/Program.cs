@@ -63,7 +63,48 @@ namespace BokaMera.API.Samples
             Console.ReadKey();
         }
 
-     
+        public void PostBookingAsAdminExample()
+        {
+            // Create and configure client
+            // BokaMera API supports MsgPack, prefer that for efficient communication with the API.
+            // See https://github.com/ServiceStack/ServiceStack/wiki/MessagePack-Format
+            // See https://github.com/ServiceStack/ServiceStack/wiki/C%23-client
+            var client = new JsonServiceClient(ApiUrlTest);
+            client.Headers.Add("x-api-key", "YOUR_API_KEY_HERE");
+            //Language settings sv = swedish, en = english (default)
+            client.Headers.Add("x-language", "sv");
+
+            //Authenticate the user
+            var response = client.Post<AuthenticateResponse>("authenticate", new
+            {
+                UserName = "demo@bokamera.se", //The user is administrator for Company Demo Hårsalong with CompanyId: 00000000-0000-0000-0000-000000000001 (see https://www.bokamera.se/Demo1)
+                Password = "demo12",
+            });
+
+            client.AddHeader("x-ss-id", response.SessionId);
+            client.BearerToken = response.BearerToken;
+
+            //Create request object for create a new booking
+            var request = new CreateBooking
+            {
+               CompanyId = new Guid("00000000-0000-0000-0000-000000000001"),
+               CustomerId = new Guid("00000000-0000-0000-0000-000000000010"),
+               From = DateTime.Now,
+               To = DateTime.Now.AddMinutes(60),
+               AllowBookingOutsideSchedules = true,
+               ServiceId = 1, //Klippning , kort hår - Kortbetalning (see https://www.bokamera.se/Demo1/BookTime?event=1)
+               Resources = new System.Collections.Generic.List<ResourceToBook>()
+               {
+                    new ResourceToBook() { ResourceId = 1, ResourceTypeId = 1 },
+                    new ResourceToBook() { ResourceId = 5, ResourceTypeId = 2 },
+               }
+
+
+
+            };
+
+
+        }
         static void GetBookingsExample()
         {
             // Create and configure client
@@ -89,7 +130,7 @@ namespace BokaMera.API.Samples
             //See https://github.com/ServiceStack/ServiceStack/wiki/AutoQuery-RDBMS How to query on columns
             var request = new BookingQuery
             {
-                AllCompanyBookings = true //Get All bookings for the company you are administrator for (the authenticated user)
+                CompanyBookings = true //Get All bookings for the company you are administrator for (the authenticated user)
                 //Id = 370476, //Get a specific booking with the BookingId
                 //IncludeBookedResources = true, //Include all booked resource information
                 //IncludeCompanyInformation = true,  //Include the company information for the booking
