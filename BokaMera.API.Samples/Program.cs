@@ -23,7 +23,10 @@ namespace BokaMera.API.Samples
             // See https://github.com/ServiceStack/ServiceStack/wiki/C%23-client
             var client = new JsonServiceClient(ApiUrlTest);
             client.Headers.Add("x-api-key", "YOUR_API_KEY_HERE");
-            
+            //Language settings sv = swedish, en = english (default)
+            client.Headers.Add("x-language", "sv");
+
+
             //Authenticate the user
             var response = client.Post<AuthenticateResponse>("authenticate", new
             {
@@ -31,17 +34,13 @@ namespace BokaMera.API.Samples
                 Password = "password",
             });
 
-            
             client.AddHeader("x-ss-id", response.SessionId);
-
-            
             client.BearerToken = response.BearerToken;           
 
             // Call service, this uses Dto from BokaMera's nuget package to return typed responses.
             // Check the namespace BokaMera.API.ServiceModel.Dto.* for request and response classes
             Console.WriteLine("Calling service GetApiVersion...");
             var versionResponse = client.Get(new ApiVersionQuery());
-
 
             //Create request object for retrieving bookings
             var request = new BookingQuery
@@ -64,7 +63,69 @@ namespace BokaMera.API.Samples
             Console.ReadKey();
         }
 
-        static void AuthExamples()
+     
+        static void GetBookingsExample()
+        {
+            // Create and configure client
+            // BokaMera API supports MsgPack, prefer that for efficient communication with the API.
+            // See https://github.com/ServiceStack/ServiceStack/wiki/MessagePack-Format
+            // See https://github.com/ServiceStack/ServiceStack/wiki/C%23-client
+            var client = new JsonServiceClient(ApiUrlTest);
+            client.Headers.Add("x-api-key", "YOUR_API_KEY_HERE");
+            //Language settings sv = swedish, en = english (default)
+            client.Headers.Add("x-language", "sv");
+
+            //Authenticate the user
+            var response = client.Post<AuthenticateResponse>("authenticate", new
+            {
+                UserName = "demo@bokamera.se",
+                Password = "demo12",
+            });
+
+            client.AddHeader("x-ss-id", response.SessionId);
+            client.BearerToken = response.BearerToken;
+
+            //Create request object for retrieving bookings
+            //See https://github.com/ServiceStack/ServiceStack/wiki/AutoQuery-RDBMS How to query on columns
+            var request = new BookingQuery
+            {
+                AllCompanyBookings = true //Get All bookings for the company you are administrator for (the authenticated user)
+                //Id = 370476, //Get a specific booking with the BookingId
+                //IncludeBookedResources = true, //Include all booked resource information
+                //IncludeCompanyInformation = true,  //Include the company information for the booking
+                //IncludeCustomerInformation = true,  //Include the customer information for the booking
+                //IncludeCustomFields = true,  //Include the custom fields for the booking if any exists
+                //IncludeLog = true,  //Include the booking log (only allowed for adminstrators
+                //IncludeCustomFieldValues = true,  //Include the selected values for the custom fields, if any exists
+                //IncludeServiceInformation = true, //Include the service information for the booking
+                //BookingStart = new DateTime(2017, 01, 01), //Will query bookings that are between BookingStart and BookingEnd (Default for BookingStart is DateTime.MinValue)
+                //BookingEnd = new DateTime(2017, 01, 01), //Will query bookings that are between BookingStart and BookingEnd (Default for BookingStart is DateTime.MaxValue)
+                //StatusIds = new int[] { 1, 2, 3 }, //Will get all bookings with the status 1,2 or 3
+                //Take = 10, //Will get at most 10 bookings (user for paging)
+                //Skip = 5, //Will skip 5 bookings  (user for paging)
+                //OrderBy = "Id", //will order bookings by the property Id Asceding
+                //OrderByDesc = "Id" //Will order bookings by the property Id Descending
+            };
+
+            // Call service, this uses Dto from BokaMera's nuget package to return typed responses.
+            // Check the namespace BokaMera.API.ServiceModel.Dto.* for request and response classes
+            //Retrieve the bookings. To see what return type see the https://testapi.bokamera.se/swagger-ui/#!/bookings/BookingQuery  
+            QueryResponse<BookingQueryResponse> bookings = client.Get<QueryResponse<BookingQueryResponse>>(request);
+
+            // Print response
+            Console.WriteLine("Response received, printing output...");
+            response.PrintDump();
+
+            // Logout session
+            Console.WriteLine("Logging out...press any key to quit");
+            client.Post(new Authenticate { provider = "logout" });
+
+            // Wait for keypress
+            Console.ReadKey();
+
+        }
+
+            static void AuthExamples()
         {
 
             var userName = "username";
