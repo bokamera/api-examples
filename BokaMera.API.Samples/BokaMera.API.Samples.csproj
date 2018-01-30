@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BokaMera.Api, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\BokaMera.API.ServiceModel.0.2.256\lib\net45\BokaMera.Api.dll</HintPath>
+      <HintPath>packages\BokaMera.API.ServiceModel.0.2.397\lib\net45\BokaMera.Api.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MsgPack, Version=0.8.0.0, Culture=neutral, PublicKeyToken=a2625990d5dc0167, processorArchitecture=MSIL">
