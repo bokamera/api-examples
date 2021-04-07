@@ -24,7 +24,17 @@ namespace BokaMera.API.Samples.Bootstrap
             // Create a client that always adds the bearer token and api key to headers
             var client = new JsonServiceClient(config.ApiBaseUrl.ToString())
             {
-                BearerToken = session.AccessToken
+                
+                // Access token is short lived, see session.ExpiresIn
+                BearerToken = session.AccessToken,
+                
+                // When access token expires, the refresh token is used to retrieve a new one,
+                // the refresh token can also expire, see session.RefreshTokenExpiresIn 
+                
+                // When this happens, it will throw a RefreshTokenExpiredException that can 
+                // be caught in order to re-authenticate.
+                // See: https://docs.servicestack.net/jwt-authprovider#handling-refresh-tokens-expiring
+                RefreshToken = session.RefreshToken
             };
 
             // Access headers

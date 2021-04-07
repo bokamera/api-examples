@@ -14,7 +14,7 @@ namespace BokaMera.API.Samples
             // Setup credentials
             // TODO: ENTER YOUR CREDENTIALS AND API KEY HERE
             var config = Config.TestEnvironment;
-            config.ApiKey = Guid.Parse("00000000-0000-0000-0000-000000000000");
+            config.ApiKey = Guid.Parse("FAF84D4B-58E0-435C-A4C3-536A00CAFABD");
             config.Username = "demo@bokamera.se";
             config.Password = "demo12";
 
@@ -55,8 +55,12 @@ namespace BokaMera.API.Samples
             // If no properties are set, all bookings for the current users company is returned
             var request = new BookingQuery
             {
+                // If your user is an administer and want to list all bookings, set this to true
+                // otherwise the bookings returned will be only the current users bookings
+                // CompanyBookings = false
+                
                 // Use id if you want to retrieve one specific booking
-                // Id = 370476 
+                //Id = 404042 
                 
                 // Use interval if you want a range
                 // BookingStart = DateTime.Now,
@@ -65,7 +69,6 @@ namespace BokaMera.API.Samples
                 // Use skip and take for paging
                 // Skip = 5,
                 // Take = 10
-                
             };
 
             //Retrieve the bookings. To see what return type see the https://testapi.bokamera.se/swagger-ui/#!/bookings/BookingQuery  
