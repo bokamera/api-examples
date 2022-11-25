@@ -16,7 +16,7 @@ namespace BokaMera.API.Samples
             var config = Config.TestEnvironment;
             config.ApiKey = Guid.Parse("FAF84D4B-58E0-435C-A4C3-536A00CAFABD");
             config.Username = "demo@bokamera.se";
-            config.Password = "demo12";
+            config.Password = "demo123)";
 
             // Create client and login
             var (client, session) = BokaMeraClientFactory.GetAuthorizedClient(config);
