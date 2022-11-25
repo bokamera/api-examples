@@ -19,16 +19,16 @@ namespace BokaMera.API.Samples.Model
         public static Config TestEnvironment => new()
         {
             ApiBaseUrl = new Uri("https://testapi.bokamera.se/"), 
-            TokenUrl = new Uri("https://identity.bookmore.dev/auth/realms/bookmore/protocol/openid-connect/token"),
-            EndSessionUrl = new Uri("https://identity.bookmore.dev/auth/realms/bookmore/protocol/openid-connect/logout"),
+            TokenUrl = new Uri("https://identity.bookmore.dev/realms/bookmore/protocol/openid-connect/token"),
+            EndSessionUrl = new Uri("https://identity.bookmore.dev/realms/bookmore/protocol/openid-connect/logout"),
             ClientId = "bm-external-api-users"
         };
         
         public static Config ProductionEnvironment => new()
         {
             ApiBaseUrl = new Uri("https://api.bokamera.se/"), 
-            TokenUrl = new Uri("https://identity.bookmore.com/auth/realms/bookmore/protocol/openid-connect/token"),
-            EndSessionUrl = new Uri("https://identity.bookmore.com/auth/realms/bookmore/protocol/openid-connect/logout"),
+            TokenUrl = new Uri("https://identity.bookmore.com/realms/bookmore/protocol/openid-connect/token"),
+            EndSessionUrl = new Uri("https://identity.bookmore.com/realms/bookmore/protocol/openid-connect/logout"),
             ClientId = "bm-external-api-users"
         };
     }
