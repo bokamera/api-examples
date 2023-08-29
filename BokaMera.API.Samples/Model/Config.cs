@@ -21,7 +21,7 @@ namespace BokaMera.API.Samples.Model
             ApiBaseUrl = new Uri("https://testapi.bokamera.se/"), 
             TokenUrl = new Uri("https://identity.bookmore.dev/realms/bookmore-admin/protocol/openid-connect/token"),
             EndSessionUrl = new Uri("https://identity.bookmore.dev/realms/bookmore-admin/protocol/openid-connect/logout"),
-            ClientId = "bm-admin"
+            ClientId = "bm-external-api"
         };
         
         public static Config ProductionEnvironment => new()
@@ -29,7 +29,7 @@ namespace BokaMera.API.Samples.Model
             ApiBaseUrl = new Uri("https://api.bokamera.se/"), 
             TokenUrl = new Uri("https://identity.bookmore.com/realms/bookmore-admin/protocol/openid-connect/token"),
             EndSessionUrl = new Uri("https://identity.bookmore.com/realms/bookmore-admin/protocol/openid-connect/logout"),
-            ClientId = "bm-admin"
+            ClientId = "bm-external-api"
         };
     }
 }
